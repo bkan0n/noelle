@@ -1,0 +1,9 @@
+name: genshinbot
+
+services:
+  bot:
+    container_name: genshinbot
+    restart: unless-stopped
+    build: .
+    environment:
+      - TOKEN=${TOKEN}
