@@ -14,7 +14,7 @@ class CharacterInfo(msgspec.Struct):
     image: str
 
 
-with open("data/character_build_data.json", "r") as f:
+with open("/data/character_build_data.json", "r") as f:
     _list = msgspec.json.decode(f.read(), type=list[CharacterInfo])
 CHARACTER_INFO: dict[str, CharacterInfo] = {}
 for _char in _list:
