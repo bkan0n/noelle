@@ -131,7 +131,7 @@ class PersonagemCog(commands.Cog):
             description=(
                 f"## {char.element_emoji} {char.character_name}\n\n"
                 "> ### Guia Detalhado no YouTube:\n"
-                f"> [Link do Vídeo!]({char.guide_video_url})"
+                f"> ## [Link do Vídeo!]({char.guide_video_url})"
             ),
             color=discord.Color.from_str(char.element_color),
         )
