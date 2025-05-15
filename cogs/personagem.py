@@ -10,7 +10,7 @@ from rapidfuzz import process, fuzz, utils
 
 class CharacterInfo(msgspec.Struct):
     character_name: str
-    video_url: str
+    guide_video_url: str
     guide_image_url: str
     character_icon_url: str
     element: Literal["pyro", "cryo", "hydro", "dendro", "anemo", "geo", "electro"]
@@ -18,10 +18,6 @@ class CharacterInfo(msgspec.Struct):
     @property
     def element_color(self):
         return ELEMENTS[self.element]["color"]
-
-    @property
-    def element_icon(self):
-        return ELEMENTS[self.element]["icon"]
 
     @property
     def element_emoji(self):
@@ -135,7 +131,7 @@ class PersonagemCog(commands.Cog):
             description=(
                 f"## {char.element_emoji} {char.character_name}\n\n"
                 "> ### Guia Detalhado no YouTube:\n"
-                f"> [Link do Vídeo!]({char.video_url})"
+                f"> [Link do Vídeo!]({char.guide_video_url})"
             ),
             color=discord.Color.from_str(char.element_color),
         )
