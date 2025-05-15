@@ -56,6 +56,11 @@ class PersonagemCog(commands.Cog):
         interaction: discord.Interaction,
         personagem: app_commands.Transform[str, CharacterNameTransformer],
     ) -> None:
+        """Encontre um guia de build para um personagem
+
+        Args:
+            personagem (str): Nome do personagem
+        """
         if personagem not in CHARACTER_INFO:
             await interaction.response.send_message(
                 f"Character ({personagem}) not found.", ephemeral=True
