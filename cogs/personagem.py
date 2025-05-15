@@ -1,4 +1,4 @@
-from typing import List, Any
+from typing import List, Any, TypedDict, Literal
 
 import discord
 import msgspec
@@ -9,11 +9,66 @@ from rapidfuzz import process, fuzz, utils
 
 
 class CharacterInfo(msgspec.Struct):
-    name: str
-    url: str
-    image: str
-    thumbnail: str
+    character_name: str
+    video_url: str
+    guide_image_url: str
+    character_icon_url: str
+    element: Literal["pyro", "cryo", "hydro", "dendro", "anemo", "geo", "electro"]
+
+    @property
+    def element_color(self):
+        return ELEMENTS[self.element]["color"]
+
+    @property
+    def element_icon(self):
+        return ELEMENTS[self.element]["icon"]
+
+
+class ElementData(TypedDict):
     color: str
+    icon: str
+
+
+class Elements(TypedDict):
+    pyro: ElementData
+    cryo: ElementData
+    hydro: ElementData
+    dendro: ElementData
+    anemo: ElementData
+    geo: ElementData
+    electro: ElementData
+
+
+ELEMENTS: Elements = {
+    "pyro": {
+        "color": "#b7242a",
+        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695727590998208/Fire.png",
+    },
+    "cryo": {
+        "color": "#75a9d8",
+        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695669223063642/Ice.png",
+    },
+    "hydro": {
+        "color": "#248fbd",
+        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695712827183134/Water.png",
+    },
+    "dendro": {
+        "color": "#7553c3",
+        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695654127632394/Grass.png",
+    },
+    "anemo": {
+        "color": "#289d93",
+        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695638948708462/Wind.png",
+    },
+    "geo": {
+        "color": "#e5a659",
+        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695627124703263/Rock.png",
+    },
+    "electro": {
+        "color": "7553c3",
+        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695683575975977/Elec.png",
+    },
+}
 
 
 with open("/data/character_build_data.json", "r") as f:
@@ -21,7 +76,7 @@ with open("/data/character_build_data.json", "r") as f:
 
 CHARACTER_INFO: dict[str, CharacterInfo] = {}
 for _char in _list:
-    CHARACTER_INFO[_char.name] = _char
+    CHARACTER_INFO[_char.character_name] = _char
 
 
 class CharacterNameTransformer(discord.app_commands.Transformer):
@@ -70,15 +125,19 @@ class PersonagemCog(commands.Cog):
             )
             return
 
-        resolved_character = CHARACTER_INFO[personagem]
+        char = CHARACTER_INFO[personagem]
 
         embed = discord.Embed(
-            title=personagem,
-            description=f"[{personagem} Guide]({resolved_character.url})",
-            color=discord.Color.from_str(resolved_character.color),
+            description=f"[{personagem} Guide]({char.video_url})",
+            color=discord.Color.from_str(char.element_color),
         )
-        embed.set_image(url=resolved_character.image)
-        embed.set_thumbnail(url=resolved_character.thumbnail)
+        embed.set_author(name=char.character_name, icon_url=char.element_icon)
+        embed.set_image(url=char.guide_image_url)
+        embed.set_thumbnail(url=char.character_icon_url)
+        embed.set_footer(
+            text="Tudo é só sugestão — builde seu boneco com o que você tem e o que fizer sentido pro seu jogo",
+            icon_url="https://cdn.discordapp.com/attachments/1372695311369109594/1372700575673745570/image.png",
+        )
 
         await interaction.response.send_message(embed=embed)
 
