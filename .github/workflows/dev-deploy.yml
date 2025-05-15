@@ -1,0 +1,12 @@
+name: dev-deploy.yml
+on: issue_comment
+
+jobs:
+  pr_comment:
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/dev-deploy' && github.event.comment.user.name == 'tylovejoy' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo A comment on PR $NUMBER
+        env:
+          NUMBER: ${{ github.event.issue.number }}
