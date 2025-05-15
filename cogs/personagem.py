@@ -79,7 +79,7 @@ class PersonagemCog(commands.Cog):
         )
         embed.set_image(url=resolved_character.image)
         embed.set_thumbnail(url=resolved_character.thumbnail)
-        
+
         await interaction.response.send_message(embed=embed)
 
 
