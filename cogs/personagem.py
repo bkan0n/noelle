@@ -23,10 +23,14 @@ class CharacterInfo(msgspec.Struct):
     def element_icon(self):
         return ELEMENTS[self.element]["icon"]
 
+    @property
+    def element_emoji(self):
+        return ELEMENTS[self.element]["emoji"]
+
 
 class ElementData(TypedDict):
     color: str
-    icon: str
+    emoji: str
 
 
 class Elements(TypedDict):
@@ -42,31 +46,31 @@ class Elements(TypedDict):
 ELEMENTS: Elements = {
     "pyro": {
         "color": "#b7242a",
-        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695727590998208/Fire.png",
+        "emoji": "<:_:1372712159661916212>",
     },
     "cryo": {
         "color": "#75a9d8",
-        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695669223063642/Ice.png",
+        "emoji": "<:_:1372712163516354631>",
     },
     "hydro": {
         "color": "#248fbd",
-        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695712827183134/Water.png",
+        "emoji": "<:_:1372712160869748758>",
     },
     "dendro": {
         "color": "#7553c3",
-        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695654127632394/Grass.png",
+        "emoji": "<:_:1372712164439101450>",
     },
     "anemo": {
         "color": "#289d93",
-        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695638948708462/Wind.png",
+        "emoji": "<:_:1372712165408116828>",
     },
     "geo": {
         "color": "#e5a659",
-        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695627124703263/Rock.png",
+        "emoji": "<:geo:1372710383260930048>",
     },
     "electro": {
         "color": "7553c3",
-        "icon": "https://cdn.discordapp.com/attachments/1372695311369109594/1372695683575975977/Elec.png",
+        "emoji": "<:_:1372712162471972984>",
     },
 }
 
@@ -121,22 +125,25 @@ class PersonagemCog(commands.Cog):
         """
         if personagem not in CHARACTER_INFO:
             await interaction.response.send_message(
-                f"Character ({personagem}) not found.", ephemeral=True
+                f"Personagem ({personagem}) não encontrado.", ephemeral=True
             )
             return
 
         char = CHARACTER_INFO[personagem]
 
         embed = discord.Embed(
-            description=f"[{personagem} Guide]({char.video_url})",
+            description=(
+                f"## {char.element_emoji} {char.character_name}\n\n"
+                "> ### Guia Detalhado no YouTube:\n"
+                f"> [Link do Vídeo!]({char.video_url})"
+            ),
             color=discord.Color.from_str(char.element_color),
         )
-        embed.set_author(name=char.character_name, icon_url=char.element_icon)
         embed.set_image(url=char.guide_image_url)
         embed.set_thumbnail(url=char.character_icon_url)
         embed.set_footer(
-            text="Tudo é só sugestão — builde seu boneco com o que você tem e o que fizer sentido pro seu jogo",
-            icon_url="https://cdn.discordapp.com/attachments/1372695311369109594/1372701860179476520/warning-genshin.png",
+            text="Tudo é só recomendação — builde seu personagem com o que você tem e o que fizer sentido pro seu jogo!",
+            icon_url="https://cdn.discordapp.com/attachments/1372695311369109594/1372703311513522176/warning-genshin.png",
         )
 
         await interaction.response.send_message(embed=embed)
