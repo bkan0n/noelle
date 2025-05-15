@@ -136,7 +136,7 @@ class PersonagemCog(commands.Cog):
         embed.set_thumbnail(url=char.character_icon_url)
         embed.set_footer(
             text="Tudo é só sugestão — builde seu boneco com o que você tem e o que fizer sentido pro seu jogo",
-            icon_url="https://cdn.discordapp.com/attachments/1372695311369109594/1372700575673745570/image.png",
+            icon_url="https://cdn.discordapp.com/attachments/1372695311369109594/1372701860179476520/warning-genshin.png",
         )
 
         await interaction.response.send_message(embed=embed)
