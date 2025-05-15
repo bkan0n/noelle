@@ -56,7 +56,7 @@ class PersonagemCog(commands.Cog):
         interaction: discord.Interaction,
         personagem: app_commands.Transform[str, CharacterNameTransformer],
     ) -> None:
-        """Encontre um guia de personagem
+        """Encontre um guia de build para um personagem
 
         Args:
             personagem (str): Nome do personagem
