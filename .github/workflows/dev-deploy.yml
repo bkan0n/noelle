@@ -3,7 +3,7 @@ on: issue_comment
 
 jobs:
   pr_comment:
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/dev-deploy' && github.event.comment.user.name == 'tylovejoy' }}
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/dev-deploy' && github.event.comment.user.login == 'tylovejoy' }}
     runs-on: ubuntu-latest
     steps:
       - run: |
