@@ -2,72 +2,100 @@
   {
     "name": "Example Name 1",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Example Name 2",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Alpha Knight",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Echo Ranger",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Luna Phantom",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Zara Storm",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Blaze Fury",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Vega Vortex",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Kairos Tempest",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Nova Blaze",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Seraphina Dawn",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Orion Knight",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Astra Hunter",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Raven Blaze",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   },
   {
     "name": "Fenix Scorcher",
