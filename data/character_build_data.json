@@ -100,6 +100,8 @@
   {
     "name": "Fenix Scorcher",
     "url": "https://google.com",
-    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high"
+    "image": "https://i.imgur.com/UnZlSO9_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    "thumbnail": "https://genshin-impact.fandom.com/wiki/Navia/Gallery?file=Navia_Icon.png",
+    "color": "#FFD700"
   }
 ]
