@@ -12,10 +12,13 @@ class CharacterInfo(msgspec.Struct):
     name: str
     url: str
     image: str
+    thumbnail: str
+    color: str
 
 
 with open("/data/character_build_data.json", "r") as f:
     _list = msgspec.json.decode(f.read(), type=list[CharacterInfo])
+
 CHARACTER_INFO: dict[str, CharacterInfo] = {}
 for _char in _list:
     CHARACTER_INFO[_char.name] = _char
@@ -72,10 +75,11 @@ class PersonagemCog(commands.Cog):
         embed = discord.Embed(
             title=personagem,
             description=f"[{personagem} Guide]({resolved_character.url})",
+            color=resolved_character.color,
         )
-        embed.set_image(
-            url=resolved_character.image,
-        )
+        embed.set_image(url=resolved_character.image)
+        embed.set_thumbnail(url=resolved_character.thumbnail)
+
         await interaction.response.send_message(embed=embed)
 
 
