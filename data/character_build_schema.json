@@ -4,26 +4,27 @@
   "items": {
     "type": "object",
     "properties": {
-      "name": {
+      "character_name": {
         "type": "string"
       },
-      "url": {
+      "video_url": {
         "type": "string",
         "format": "uri"
       },
-      "image": {
+      "guide_image_url": {
         "type": "string",
         "format": "uri"
       },
-      "thumbnail": {
+      "character_icon_url": {
         "type": "string",
         "format": "uri"
       },
-      "color": {
-        "type": "string"
+      "element": {
+        "type": "string",
+        "enum": ["pyro", "cryo", "hydro", "dendro", "anemo", "geo", "electro"]
       }
     },
-    "required": ["name", "url", "image", "thumbnail", "color"],
+    "required": ["character_name", "video_url", "guide_image_url", "character_icon_url", "element"],
     "additionalProperties": false
   }
 }

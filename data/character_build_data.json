@@ -1,9 +1,9 @@
 [
   {
-    "name": "Navia",
-    "url": "https://google.com",
-    "image": "https://cdn.discordapp.com/attachments/1372677952030117948/1372681306307166238/testeguia.png",
-    "thumbnail": "https://cdn.discordapp.com/attachments/1372677919624790076/1372681580618711060/Icon.webp",
-    "color": "#FFD700"
+    "character_name": "Navia",
+    "video_url": "https://google.com",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1372681306307166238/testeguia.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372681580618711060/Icon.webp",
+    "element": "geo"
   }
 ]
