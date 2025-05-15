@@ -75,7 +75,7 @@ class PersonagemCog(commands.Cog):
         embed = discord.Embed(
             title=personagem,
             description=f"[{personagem} Guide]({resolved_character.url})",
-            color=resolved_character.color,
+            color=discord.Color.from_str(resolved_character.color),
         )
         embed.set_image(url=resolved_character.image)
         embed.set_thumbnail(url=resolved_character.thumbnail)
