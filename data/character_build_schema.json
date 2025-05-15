@@ -14,9 +14,16 @@
       "image": {
         "type": "string",
         "format": "uri"
+      },
+      "thumbnail": {
+        "type": "string",
+        "format": "uri"
+      },
+      "color": {
+        "type": "string"
       }
     },
-    "required": ["name", "url", "image"],
+    "required": ["name", "url", "image", "thumbnail", "color"],
     "additionalProperties": false
   }
 }
