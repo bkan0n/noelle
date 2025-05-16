@@ -1,4 +1,4 @@
-discord.py
-jishaku
-msgspec
-rapidfuzz
+discord.py==2.5.2
+jishaku==2.6.0
+msgspec==0.19.0
+rapidfuzz==3.13.0
