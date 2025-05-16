@@ -10,8 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: |
-      (github.ref == 'refs/heads/main' && github.event_name != 'issue_comment') || (github.event_name == 'issue_comment' && github.event.comment.body == '/dev-deploy' && github.event.comment.user.login == 'tylovejoy' )
-
+      (github.ref == 'refs/heads/main' && github.event_name != 'issue_comment') ||
+      (github.event_name == 'issue_comment' && 
+       github.event.comment.body == '/dev-deploy' && 
+       github.event.comment.user.login == 'tylovejoy' &&
+       github.event.pull_request.state == 'open')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
