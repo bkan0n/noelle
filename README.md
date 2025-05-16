@@ -1,4 +1,6 @@
 # Noelle
+[![Lint](https://github.com/bkan0n/noelle/actions/workflows/lint.yml/badge.svg)](https://github.com/bkan0n/noelle/actions/workflows/lint.yml)
+[![Deployment](https://github.com/bkan0n/noelle/actions/workflows/deploy.yml/badge.svg)](https://github.com/bkan0n/noelle/actions/workflows/deploy.yml)
 
 Noelle is a Discord bot created for the [@HMC GamerBr YouTube Community](https://www.youtube.com/@HMCGamerBr) revolving around the game Genshin Impact.
 [Discord Server Link](https://discord.gg/r4hjPM9HS2)
