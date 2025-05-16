@@ -28,7 +28,7 @@ jobs:
       - name: Build Docker image
         run: |
           VERSION_TAG=$(git rev-parse --short HEAD)
-          docker build -t tylovejoy/genshinbot:$VERSION_TAG -t tylovejoy/genshinbot:latest .
+          docker build --no-cache -t tylovejoy/genshinbot:$VERSION_TAG -t tylovejoy/genshinbot:latest .
 
       - name: Push Docker image to Docker Hub
         run: |
@@ -68,7 +68,7 @@ jobs:
           VERSION_TAG=$(git rev-parse --short HEAD)
           echo "Deploying to Prod Server..."
           
-          docker compose -f docker-compose.yml up -d --build --no-deps
+          docker compose -f docker-compose.yml up -d --build --no-deps --force-recreate
 
         env:
           VERSION_TAG: ${{ github.sha }}
@@ -107,7 +107,7 @@ jobs:
           VERSION_TAG=$(git rev-parse --short HEAD)
           echo "Deploying to Dev Server..."
           
-          docker compose -f docker-compose.dev.yml up -d --build --no-deps
+          docker compose -f docker-compose.dev.yml up -d --build --no-deps --force-recreate
 
         env:
           VERSION_TAG: ${{ github.sha }}
