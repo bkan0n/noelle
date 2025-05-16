@@ -1,7 +1,7 @@
 # Noelle
 
-Noelle is a Discord bot created for the @HMC GamerBr YouTube Community revolving around the game Genshin Impact.
-
+Noelle is a Discord bot created for the [@HMC GamerBr YouTube Community](https://www.youtube.com/@HMCGamerBr) revolving around the game Genshin Impact.
+[Discord Server Link](https://discord.gg/r4hjPM9HS2)
 ## Prerequisites
 
 - Docker and Docker Compose
