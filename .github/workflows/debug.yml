@@ -10,4 +10,7 @@ jobs:
     steps:
       - name: Debug PR SHA
         run: |
-          echo "Pull request SHA: ${{ github.event.pull_request.head.sha }}"
+          echo "Pull request SHA: ${{ github.event }}"
+          echo "Pull request SHA: ${{ github.event.pull_request }}"
+          echo "Pull request SHA: ${{ github.event.issue }}"
+          echo "Pull request SHA: ${{ github.event.issue.pull_request.head.sha }}"
