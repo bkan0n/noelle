@@ -46,6 +46,8 @@ TOKEN=xxxxxxxxxxx
 3. Ensure your Python virtual environment is set up.
 ```bash
 pip install -r requirements.txt
+# Additionally any dev dependencies
+pip install -r requirements.dev.txt
 ```
 
 4. Run the bot using Docker Compose. Ensure your TOKEN env var is set before running this command. 
