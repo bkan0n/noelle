@@ -22,7 +22,7 @@ class HousekeepingCog(commands.Cog):
         self,
         ctx: NoelleCtx,
     ) -> None:
-        await ctx.send("Test complete!!! :)")
+        await ctx.send("Test complete!!!")
 
     @commands.command()
     @commands.guild_only()
