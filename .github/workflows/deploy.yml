@@ -73,7 +73,7 @@ jobs:
   deploy_to_dev:
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/dev-deploy' && github.event.comment.user.login == secrets.GLOBAL_CODEOWNER_USERNAME }}
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/dev-deploy' && github.event.comment.user.login == 'tylovejoy' }}
     environment: development
     steps:
       - name: Checkout repository
