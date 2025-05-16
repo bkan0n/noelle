@@ -69,6 +69,7 @@ jobs:
 
         env:
           VERSION_TAG: ${{ github.sha }}
+          TOKEN: ${{ secrets.TOKEN }}
 
   deploy_to_dev:
     runs-on: ubuntu-latest
@@ -105,3 +106,4 @@ jobs:
 
         env:
           VERSION_TAG: ${{ github.sha }}
+          TOKEN: ${{ secrets.TOKEN }}
