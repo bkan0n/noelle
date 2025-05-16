@@ -70,7 +70,7 @@ The project uses GitHub Actions for automated deployment. Here's how it works:
 1. Create a Pull Request with your changes
 2. GitHub Actions will run automated checks including Ruff
 3. All checks must pass before merging is allowed
-4. The CODEOWNER, in this case [@tylovejoy] (https://www.github.com/tylovejoy), has the ability to run `/dev-deploy` in the PR comments to verify the changes work without issue. If you fork this and want to self-host, you will need to change the github login name values in the deploy.yml workflow file (`github.event.comment.user.login == 'xxxxxx'`).
+4. The CODEOWNER, in this case [@tylovejoy](https://www.github.com/tylovejoy), has the ability to run `/dev-deploy` in the PR comments to verify the changes work without issue. If you fork this and want to self-host, you will need to change the github login name values in the deploy.yml workflow file (`github.event.comment.user.login == 'xxxxxx'`).
 
 ### Deployment Requirements
 
