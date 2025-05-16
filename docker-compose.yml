@@ -4,6 +4,6 @@ services:
   bot:
     container_name: genshinbot
     restart: unless-stopped
-    build: .
+    image: tylovejoy/genshinbot:${VERSION_TAG}
     environment:
       - TOKEN=${TOKEN}

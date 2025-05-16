@@ -1,0 +1,9 @@
+name: genshinbot-dev
+
+services:
+  bot-dev:
+    container_name: genshinbot-dev
+    restart: unless-stopped
+    image: tylovejoy/genshinbot:latest
+    environment:
+      - TOKEN=${TOKEN}
