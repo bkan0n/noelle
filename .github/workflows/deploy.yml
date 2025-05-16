@@ -31,13 +31,13 @@ jobs:
       - name: Build Docker image
         run: |
           VERSION_TAG=$(git rev-parse --short HEAD)
-          docker build --no-cache --pull -t tylovejoy/genshinbot:$VERSION_TAG -t tylovejoy/genshinbot:latest .
+          docker build --no-cache --pull -t tylovejoy/noelle:$VERSION_TAG -t tylovejoy/noelle:latest .
 
       - name: Push Docker image to Docker Hub
         run: |
           VERSION_TAG=$(git rev-parse --short HEAD)
-          docker push tylovejoy/genshinbot:$VERSION_TAG
-          docker push tylovejoy/genshinbot:latest
+          docker push tylovejoy/noelle:$VERSION_TAG
+          docker push tylovejoy/noelle:latest
 
   deploy_to_prod:
     runs-on: ubuntu-latest

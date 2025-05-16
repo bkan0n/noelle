@@ -1,0 +1,9 @@
+name: noelle-local
+
+services:
+  bot-local:
+    container_name: noelle-local
+    restart: unless-stopped
+    build: .
+    environment:
+      - TOKEN=${TOKEN}

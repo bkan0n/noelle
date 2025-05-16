@@ -11,7 +11,7 @@ intents = discord.Intents.all()
 log = logging.getLogger(__name__)
 
 
-class Bot(commands.Bot):
+class Noelle(commands.Bot):
     def __init__(self) -> None:
         super().__init__("!", intents=intents)
 

@@ -6,7 +6,7 @@ from typing import Iterator
 
 import discord
 
-from core.bot import Bot
+from core.bot import Noelle
 
 
 class RemoveNoise(logging.Filter):
@@ -52,7 +52,7 @@ def setup_logging() -> Iterator[None]:
 
 async def main() -> None:
     """Start the bot instance."""
-    bot = Bot()
+    bot = Noelle()
     async with bot:
         await bot.start(os.environ["TOKEN"])
 
