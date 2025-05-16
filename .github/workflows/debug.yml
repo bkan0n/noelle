@@ -5,7 +5,7 @@ on:
 jobs:
   debug:
     runs-on: ubuntu-latest
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/dev-deploy' && github.event.comment.user.login == 'tylovejoy' }}
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/debug' && github.event.comment.user.login == 'tylovejoy' }}
     environment: development
     steps:
       - name: Debug PR SHA
