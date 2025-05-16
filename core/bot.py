@@ -36,6 +36,8 @@ class Bot(commands.Bot):
             await self.load_extension(ext)
         log.info("Setup complete.")
 
-    async def on_command_error(self, context: Context, exception: errors.CommandError) -> None:
+    async def on_command_error(
+        self, context: Context, exception: errors.CommandError
+    ) -> None:
         if isinstance(exception, errors.CommandNotFound):
             return
