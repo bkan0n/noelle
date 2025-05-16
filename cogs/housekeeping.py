@@ -11,6 +11,15 @@ class HousekeepingCog(commands.Cog):
     @commands.command()
     @commands.guild_only()
     @commands.is_owner()
+    async def test(
+        self,
+        ctx: commands.Context,
+    ) -> None:
+        await ctx.send("Test complete.")
+
+    @commands.command()
+    @commands.guild_only()
+    @commands.is_owner()
     async def sync(
         self,
         ctx: commands.Context,
