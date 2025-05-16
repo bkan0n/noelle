@@ -1,11 +1,19 @@
-from typing import List, Any, TypedDict, Literal
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Literal, TypedDict
 
 import discord
 import msgspec
-from discord import Interaction, app_commands
-from discord.app_commands import Choice
+from discord import app_commands
 from discord.ext import commands
-from rapidfuzz import process, fuzz, utils
+from rapidfuzz import fuzz, process, utils
+
+if TYPE_CHECKING:
+    from discord import Interaction
+
+    from core.noelle import Noelle
+
+    NoelleItx = Interaction[Noelle]
 
 
 class CharacterInfo(msgspec.Struct):
@@ -16,11 +24,11 @@ class CharacterInfo(msgspec.Struct):
     element: Literal["pyro", "cryo", "hydro", "dendro", "anemo", "geo", "electro"]
 
     @property
-    def element_color(self):
+    def element_color(self) -> str:
         return ELEMENTS[self.element]["color"]
 
     @property
-    def element_emoji(self):
+    def element_emoji(self) -> str:
         return ELEMENTS[self.element]["emoji"]
 
 
@@ -79,10 +87,8 @@ for _char in _list:
     CHARACTER_INFO[_char.character_name] = _char
 
 
-class CharacterNameTransformer(discord.app_commands.Transformer):
-    async def autocomplete(
-        self, interaction: Interaction, value: str
-    ) -> List[Choice[str]]:
+class CharacterNameTransformer(app_commands.Transformer):
+    async def autocomplete(self, itx: NoelleItx, value: str) -> list[app_commands.Choice[str]]:
         fuzzed = process.extract(  # type: ignore
             value,
             CHARACTER_INFO.keys(),
@@ -90,9 +96,9 @@ class CharacterNameTransformer(discord.app_commands.Transformer):
             limit=5,
             processor=utils.default_process,
         )
-        return [discord.app_commands.Choice(name=x[0], value=x[0]) for x in fuzzed]
+        return [app_commands.Choice(name=x[0], value=x[0]) for x in fuzzed]
 
-    async def transform(self, interaction: Interaction, value: Any, /) -> Any:
+    async def transform(self, itx: NoelleItx, value: str) -> str:
         fuzzed = process.extractOne(  # type: ignore
             value,
             CHARACTER_INFO.keys(),
@@ -102,27 +108,25 @@ class CharacterNameTransformer(discord.app_commands.Transformer):
         return fuzzed[0]
 
 
-class PersonagemCog(commands.Cog):
-    character_info: dict[str, CharacterInfo]
-
-    def __init__(self, bot: commands.Bot) -> None:
+class CharacterCog(commands.Cog):
+    def __init__(self, bot: Noelle) -> None:
         self.bot = bot
 
     @app_commands.command()
     async def build(
         self,
-        interaction: discord.Interaction,
+        itx: NoelleItx,
         personagem: app_commands.Transform[str, CharacterNameTransformer],
     ) -> None:
-        """Encontre um guia de build para um personagem
+        """Encontre um guia de build para um personagem.
 
         Args:
+            itx (Noelle): Interaction object
             personagem (str): Nome do personagem
+
         """
         if personagem not in CHARACTER_INFO:
-            await interaction.response.send_message(
-                f"Personagem ({personagem}) não encontrado.", ephemeral=True
-            )
+            await itx.response.send_message(f"Personagem ({personagem}) não encontrado.", ephemeral=True)
             return
 
         char = CHARACTER_INFO[personagem]
@@ -138,12 +142,15 @@ class PersonagemCog(commands.Cog):
         embed.set_image(url=char.guide_image_url)
         embed.set_thumbnail(url=char.character_icon_url)
         embed.set_footer(
-            text="Tudo é só recomendação — builde seu personagem com o que você tem e o que fizer sentido pro seu jogo!",
+            text=(
+                "Tudo é só recomendação — builde seu personagem com o que você tem e o que fizer sentido pro seu jogo!"
+            ),
             icon_url="https://cdn.discordapp.com/attachments/1372695311369109594/1372890662961152070/warning-genshin.png",
         )
 
-        await interaction.response.send_message(embed=embed)
+        await itx.response.send_message(embed=embed)
 
 
-async def setup(bot: commands.Bot) -> None:
-    await bot.add_cog(PersonagemCog(bot))
+async def setup(bot: Noelle) -> None:
+    """Load the CharacterCog cog."""
+    await bot.add_cog(CharacterCog(bot))

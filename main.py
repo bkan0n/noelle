@@ -14,9 +14,7 @@ class RemoveNoise(logging.Filter):
         super().__init__(name="discord.state")
 
     def filter(self, record: logging.LogRecord) -> bool:
-        return not (
-            record.levelname == "WARNING" and "referencing an unknown" in record.msg
-        )
+        return not (record.levelname == "WARNING" and "referencing an unknown" in record.msg)
 
 
 class RemoveShardCloseNoise(logging.Filter):
@@ -24,9 +22,7 @@ class RemoveShardCloseNoise(logging.Filter):
         super().__init__(name="discord.client")
 
     def filter(self, record: logging.LogRecord) -> bool:
-        return not (
-            record.exc_info and discord.errors.ConnectionClosed in record.exc_info
-        )
+        return not (record.exc_info and discord.errors.ConnectionClosed in record.exc_info)
 
 
 @contextlib.contextmanager
