@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ format('refs/pull/{0}/head', github.event.issue.number) || github.sha }}
+          ref: ${{ github.event.issue.number != null && format('refs/pull/{0}/head', github.event.issue.number) || github.sha }}
           fetch-depth: 0
 
       - name: Set up Docker Buildx
