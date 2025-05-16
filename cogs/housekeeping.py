@@ -15,7 +15,7 @@ class HousekeepingCog(commands.Cog):
         self,
         ctx: commands.Context,
     ) -> None:
-        await ctx.send("Test complete!!! -Test")
+        await ctx.send("Test complete!!! :)")
 
     @commands.command()
     @commands.guild_only()
