@@ -1,11 +1,18 @@
-from typing import Literal
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Literal
 
 import discord
 from discord.ext import commands
 
+if TYPE_CHECKING:
+    from core.noelle import Noelle
+
+    NoelleCtx = commands.Context[Noelle]
+
 
 class HousekeepingCog(commands.Cog):
-    def __init__(self, bot: commands.Bot) -> None:
+    def __init__(self, bot: Noelle) -> None:
         self.bot = bot
 
     @commands.command()
@@ -13,7 +20,7 @@ class HousekeepingCog(commands.Cog):
     @commands.is_owner()
     async def test(
         self,
-        ctx: commands.Context,
+        ctx: NoelleCtx,
     ) -> None:
         await ctx.send("Test complete!!! :)")
 
@@ -22,7 +29,7 @@ class HousekeepingCog(commands.Cog):
     @commands.is_owner()
     async def sync(
         self,
-        ctx: commands.Context,
+        ctx: NoelleCtx,
         guilds: commands.Greedy[discord.Object],
         spec: Literal["~", "*", "^"] | None = None,
     ) -> None:
@@ -68,6 +75,6 @@ class HousekeepingCog(commands.Cog):
         await ctx.send(f"Synced the tree to {ret}/{len(guilds)}.")
 
 
-async def setup(bot: commands.Bot) -> None:
+async def setup(bot: Noelle) -> None:
     """Load the HousekeepingCog cog."""
     await bot.add_cog(HousekeepingCog(bot))

@@ -6,7 +6,7 @@ from typing import Iterator
 
 import discord
 
-from core.bot import Noelle
+from core.noelle import Noelle
 
 
 class RemoveNoise(logging.Filter):
