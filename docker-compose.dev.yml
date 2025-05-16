@@ -1,9 +1,9 @@
-name: genshinbot-dev
+name: noelle-dev
 
 services:
   bot-dev:
-    container_name: genshinbot-dev
+    container_name: noelle-dev
     restart: unless-stopped
-    image: tylovejoy/genshinbot:${VERSION_TAG}
+    image: tylovejoy/noelle:${VERSION_TAG}
     environment:
       - TOKEN=${TOKEN}

@@ -6,7 +6,7 @@ from typing import Iterator
 
 import discord
 
-from core.bot import Bot
+from core.bot import Noelle
 
 
 class RemoveNoise(logging.Filter):
@@ -14,9 +14,7 @@ class RemoveNoise(logging.Filter):
         super().__init__(name="discord.state")
 
     def filter(self, record: logging.LogRecord) -> bool:
-        return not (
-            record.levelname == "WARNING" and "referencing an unknown" in record.msg
-        )
+        return not (record.levelname == "WARNING" and "referencing an unknown" in record.msg)
 
 
 class RemoveShardCloseNoise(logging.Filter):
@@ -24,9 +22,7 @@ class RemoveShardCloseNoise(logging.Filter):
         super().__init__(name="discord.client")
 
     def filter(self, record: logging.LogRecord) -> bool:
-        return not (
-            record.exc_info and discord.errors.ConnectionClosed in record.exc_info
-        )
+        return not (record.exc_info and discord.errors.ConnectionClosed in record.exc_info)
 
 
 @contextlib.contextmanager
@@ -52,7 +48,7 @@ def setup_logging() -> Iterator[None]:
 
 async def main() -> None:
     """Start the bot instance."""
-    bot = Bot()
+    bot = Noelle()
     async with bot:
         await bot.start(os.environ["TOKEN"])
 

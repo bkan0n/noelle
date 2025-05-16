@@ -1,12 +1,13 @@
-# genshinbot
+# Noelle
 
-A Discord bot built with Python, utilizing containerization for deployment and GitHub Actions for CI/CD.
+Noelle is a Discord bot created for the @HMC GamerBr YouTube Community revolving around the game Genshin Impact.
 
 ## Prerequisites
 
 - Docker and Docker Compose
 - A Discord Bot Token
-- Access to a server for deployment
+- Python 3.13 (for local development)
+- Access to a server for deployment (if self-hosting on a server and using GitHub Actions as CI/CD)
 
 ## Environment Variables and Secrets
 
@@ -37,18 +38,33 @@ The CI/CD uses two environments (production & development) with a single environ
 git clone https://github.com/bkan0n/genshinbot.git
 ``` 
 
-2. Run the bot using Docker Compose. Ensure your TOKEN env var is set prior to running this command.
+2. Create an `.env` file with your bot's token in your cloned repo. `.env` is included in .gitignore so it won't be published but always be sure and check that you aren't committing any secrets to GitHub.
+```.env
+TOKEN=xxxxxxxxxxx
+```
+
+3. Ensure your Python virtual environment is set up.
 ```bash
-docker compose up --build
-``` 
+pip install -r requirements.txt
+```
+
+4. Run the bot using Docker Compose. Ensure your TOKEN env var is set before running this command. 
+   - You will receive a `"The \"TOKEN\" variable is not set. Defaulting to a blank string." warning if the environment variable is improperly set.`
+```bash
+# The docker-compose.local.yml looks for the .env file and injects automatically.
+docker compose -f docker-compose.local.yml up --build
+
+# Alternatively, you can run the bot via Python, but you'll need to inject the environment variables from .env manually.
+python3 main.py
+```
 
 ## Code Style and Formatting
 
 This project uses [Ruff](https://github.com/astral-sh/ruff) for code checking and formatting. Before submitting any pull request:
 
-1. Install Ruff:
+1. Install Ruff and other dev dependencies:
 ```bash
-pip install ruff
+pip install -r requirements.dev.txt
 ``` 
 
 2. Run Ruff check:
@@ -70,8 +86,9 @@ The project uses GitHub Actions for automated deployment. Here's how it works:
 1. Create a Pull Request with your changes
 2. GitHub Actions will run automated checks including Ruff
 3. All checks must pass before merging is allowed
-4. The CODEOWNER, in this case [@tylovejoy](https://www.github.com/tylovejoy), has the ability to run `/dev-deploy` in the PR comments to verify the changes work without issue. If you fork this and want to self-host, you will need to change the github login name values in the deploy.yml workflow file (`github.event.comment.user.login == 'xxxxxx'`).
-
+4. The CODEOWNER, in this case [@tylovejoy](https://www.github.com/tylovejoy), has the ability to run `/dev-deploy` in the PR comments to verify the changes work without issue. 
+   - If you fork this and want to self-host, you will need to change the github login name values in the deploy.yml workflow file (`github.event.comment.user.login == 'xxxxxx'`).
+   - Be sure to change the .github/CODEOWNERS file as well.
 ### Deployment Requirements
 
 1. The deployment server must have:

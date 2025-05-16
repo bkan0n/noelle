@@ -11,7 +11,7 @@ intents = discord.Intents.all()
 log = logging.getLogger(__name__)
 
 
-class Bot(commands.Bot):
+class Noelle(commands.Bot):
     def __init__(self) -> None:
         super().__init__("!", intents=intents)
 
@@ -36,8 +36,6 @@ class Bot(commands.Bot):
             await self.load_extension(ext)
         log.info("Setup complete.")
 
-    async def on_command_error(
-        self, context: Context, exception: errors.CommandError
-    ) -> None:
+    async def on_command_error(self, context: Context, exception: errors.CommandError) -> None:
         if isinstance(exception, errors.CommandNotFound):
             return

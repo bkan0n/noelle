@@ -53,10 +53,7 @@ class HousekeepingCog(commands.Cog):
             else:
                 synced = await ctx.bot.tree.sync()
 
-            await ctx.send(
-                f"Synced {len(synced)} commands "
-                f"{'globally' if spec is None else 'to the current guild.'}"
-            )
+            await ctx.send(f"Synced {len(synced)} commands {'globally' if spec is None else 'to the current guild.'}")
             return
 
         ret = 0
@@ -72,4 +69,5 @@ class HousekeepingCog(commands.Cog):
 
 
 async def setup(bot: commands.Bot) -> None:
+    """Load the HousekeepingCog cog."""
     await bot.add_cog(HousekeepingCog(bot))
