@@ -7,8 +7,6 @@ A Discord bot built with Python, utilizing containerization for deployment and G
 - Docker and Docker Compose
 - A Discord Bot Token
 - Access to a server for deployment
-- GitHub account with repository access
-- Doppler account (for secrets management)
 
 ## Environment Variables and Secrets
 
@@ -20,31 +18,26 @@ The bot requires a Discord Bot Token to function. To obtain one:
 4. Create a bot and copy the token
 
 ### GitHub Actions Secrets
-The following secrets need to be configured in your Doppler project so it syncs with your GitHub repository secrets for deployment:
+The following secrets need to be configured in your GitHub repository secrets for deployment:
 
 | Secret Name | Description | Example |
 |------------|-------------|----------|
 | `SERVER_HOST_IP` | IP address of the deployment server | `123.456.789.0` |
 | `SERVER_HOST_USER` | SSH user for the deployment server | `deploy-user` |
 | `SERVER_HOST_SSH_PRIVATE_KEY` | SSH private key for server authentication | `-----BEGIN RSA PRIVATE KEY-----\n...` |
-| `SERVER_REPO_LOCATION` | Path where the repo will be cloned on the server | `/opt/discord-bot` |
-| `REPO_BRANCH` | Branch to deploy (typically main or production) | `main` |
-| `SERVER_HOST_GITHUB_PAT` | GitHub Personal Access Token for repository access | `ghp_xxxxxxxxxxxx` |
-| `DOPPLER_SERVICE_TOKEN` | Doppler token for secrets management | `dp.st.xxxxxxxxxxxx` |
+| `DOCKER_USERNAME` | Docker Hub username for Docker registry | `docker-username` |
+| `DOCKER_PASSWORD` | Docker Hub password for Docker registry | `docker-password` |
+
+The CI/CD uses two environments (production & development) with a single environment variable `TOKEN`. One token for each bot environment so that you can make changes to the dev bot before pushing to prod.
 
 ## Local Development
 
 1. Clone the repository:
 ```bash
-git clone [https://github.com/yourusername/repo-name.git](https://github.com/yourusername/repo-name.git)
+git clone https://github.com/bkan0n/genshinbot.git
 ``` 
 
-2. Create a `.env` file in the root directory:
-```bash
-env TOKEN=your_discord_bot_token
-``` 
-
-3. Run the bot using Docker Compose:
+2. Run the bot using Docker Compose. Ensure your TOKEN env var is set prior to running this command.
 ```bash
 docker compose up --build
 ``` 
@@ -77,11 +70,7 @@ The project uses GitHub Actions for automated deployment. Here's how it works:
 1. Create a Pull Request with your changes
 2. GitHub Actions will run automated checks including Ruff
 3. All checks must pass before merging is allowed
-4. Upon merging to the main branch, the deployment workflow:
-   - Builds the Docker image
-   - Connects to the deployment server via SSH
-   - Updates the repository
-   - Rebuilds and restarts the Docker containers
+4. The CODEOWNER, in this case [@tylovejoy] (https://www.github.com/tylovejoy), has the ability to run `/dev-deploy` in the PR comments to verify the changes work without issue. If you fork this and want to self-host, you will need to change the github login name values in the deploy.yml workflow file (`github.event.comment.user.login == 'xxxxxx'`).
 
 ### Deployment Requirements
 
@@ -118,7 +107,7 @@ The project uses GitHub Actions for automated deployment. Here's how it works:
 This project is licensed under the MIT License.
 ```
 MIT License
-Copyright (c) 2025 Ty Lovejoy
+Copyright (c) 2025 Bad Kids Anonymous
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
