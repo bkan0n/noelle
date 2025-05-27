@@ -5,5 +5,12 @@
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1375227393114898452/Navia.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372699231869210725/UI_AvatarIcon_Navia.webp",
     "element": "geo"
+  },
+  {
+    "character_name": "Raiden Shogun",
+    "guide_video_url": "https://youtu.be/iphbcogNKis?list=PLoq3lWQxVHVZJI51TFlI-tllrP-bXfgrJ",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1377005481826189312/Raiden.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698337899450368/UI_AvatarIcon_Shougun.webp",
+    "element": "electro"
   }
 ]
