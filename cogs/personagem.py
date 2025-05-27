@@ -73,7 +73,7 @@ ELEMENTS: Elements = {
         "emoji": "<:geo:1372710383260930048>",
     },
     "electro": {
-        "color": "7553c3",
+        "color": "#7553c3",
         "emoji": "<:_:1372712162471972984>",
     },
 }
