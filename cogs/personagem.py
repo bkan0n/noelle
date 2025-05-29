@@ -154,3 +154,7 @@ class CharacterCog(commands.Cog):
 async def setup(bot: Noelle) -> None:
     """Load the CharacterCog cog."""
     await bot.add_cog(CharacterCog(bot))
+
+
+
+asdfkljgbsdfkujgnsdkfgnsdkjfgnksdjfng
