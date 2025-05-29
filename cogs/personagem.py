@@ -49,31 +49,31 @@ class Elements(TypedDict):
 
 ELEMENTS: Elements = {
     "pyro": {
-        "color": "#b7242a",
+        "color": "#ff935e",
         "emoji": "<:_:1372712159661916212>",
     },
     "cryo": {
-        "color": "#75a9d8",
+        "color": "#abfafa",
         "emoji": "<:_:1372712163516354631>",
     },
     "hydro": {
-        "color": "#248fbd",
+        "color": "#52d2ff",
         "emoji": "<:_:1372712160869748758>",
     },
     "dendro": {
-        "color": "#7553c3",
+        "color": "#d0f281",
         "emoji": "<:_:1372712164439101450>",
     },
     "anemo": {
-        "color": "#289d93",
+        "color": "#51ebba",
         "emoji": "<:_:1372712165408116828>",
     },
     "geo": {
-        "color": "#e5a659",
+        "color": "#e2c83c",
         "emoji": "<:geo:1372710383260930048>",
     },
     "electro": {
-        "color": "#7553c3",
+        "color": "#e1a5ff",
         "emoji": "<:_:1372712162471972984>",
     },
 }
