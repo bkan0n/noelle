@@ -26,5 +26,12 @@
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1378048790061387918/Kinich.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372699563604967526/UI_AvatarIcon_Kinich.webp",
     "element": "dendro"
+  },
+  {
+    "character_name": "Kaedehara Kazuha",
+    "guide_video_url": "https://www.youtube.com/watch?v=x7nAf_scCRk&list=PLoq3lWQxVHVZJI51TFlI-tllrP-bXfgrJ&index=73&pp=gAQBiAQB",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1380258165542879334/Kazuha.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698210983743559/UI_AvatarIcon_Kazuha.webp",
+    "element": "anemo"
   }
 ]
