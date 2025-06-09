@@ -23,7 +23,7 @@
   {
     "character_name": "Kinich",
     "guide_video_url": "https://youtu.be/oW6A41P32_M",
-    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1378048790061387918/Kinich.png",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1381594913182978058/Kinich.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372699563604967526/UI_AvatarIcon_Kinich.webp",
     "element": "dendro"
   },
@@ -33,5 +33,33 @@
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1380258165542879334/Kazuha.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698210983743559/UI_AvatarIcon_Kazuha.webp",
     "element": "anemo"
+  },
+  {
+    "character_name": "Sangonomiya Kokomi",
+    "guide_video_url": "https://www.youtube.com/watch?v=-SiGKtuE3QI",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1381594931306565668/Kokomi.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698382690422974/UI_AvatarIcon_Kokomi.webp",
+    "element": "hydro"
+  },
+  {
+    "character_name": "Yae Miko",
+    "guide_video_url": "https://www.youtube.com/watch?v=u_oSDCxaQtI",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1381594952118567042/Yae_Miko.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698546901356614/UI_AvatarIcon_Yae.webp",
+    "element": "electro"
+  },
+  {
+    "character_name": "Arataki Itto",
+    "guide_video_url": "https://www.youtube.com/watch?v=pNiSq3M9mpQ",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1381595202187165778/Itto.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698459844640901/UI_AvatarIcon_Itto.webp",
+    "element": "geo"
+  },
+  {
+    "character_name": "Yoimiya",
+    "guide_video_url": "https://www.youtube.com/watch?v=t3SbAd4hV-Y",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1381595749292179547/Yoimiya.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698298464604351/UI_AvatarIcon_Yoimiya.webp",
+    "element": "pyro"
   }
 ]
