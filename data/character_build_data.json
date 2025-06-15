@@ -9,7 +9,7 @@
   {
     "character_name": "Raiden Shogun",
     "guide_video_url": "https://youtu.be/iphbcogNKis?list=PLoq3lWQxVHVZJI51TFlI-tllrP-bXfgrJ",
-    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1377417457140236470/Raiden.png",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1383761614838300703/Raiden.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698337899450368/UI_AvatarIcon_Shougun.webp",
     "element": "electro"
   },
@@ -30,36 +30,57 @@
   {
     "character_name": "Kaedehara Kazuha",
     "guide_video_url": "https://www.youtube.com/watch?v=x7nAf_scCRk&list=PLoq3lWQxVHVZJI51TFlI-tllrP-bXfgrJ&index=73&pp=gAQBiAQB",
-    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1380258165542879334/Kazuha.png",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1383771683130966136/Kazuha.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698210983743559/UI_AvatarIcon_Kazuha.webp",
     "element": "anemo"
   },
   {
     "character_name": "Sangonomiya Kokomi",
     "guide_video_url": "https://www.youtube.com/watch?v=-SiGKtuE3QI",
-    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1381594931306565668/Kokomi.png",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1383764384089899129/Kokomi.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698382690422974/UI_AvatarIcon_Kokomi.webp",
     "element": "hydro"
   },
   {
     "character_name": "Yae Miko",
     "guide_video_url": "https://www.youtube.com/watch?v=u_oSDCxaQtI",
-    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1381594952118567042/Yae_Miko.png",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1383764891151896667/Yae_Miko.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698546901356614/UI_AvatarIcon_Yae.webp",
     "element": "electro"
   },
   {
     "character_name": "Arataki Itto",
     "guide_video_url": "https://www.youtube.com/watch?v=pNiSq3M9mpQ",
-    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1381595202187165778/Itto.png",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1383765480329842818/Itto.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698459844640901/UI_AvatarIcon_Itto.webp",
     "element": "geo"
   },
   {
     "character_name": "Yoimiya",
     "guide_video_url": "https://www.youtube.com/watch?v=t3SbAd4hV-Y",
-    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1381595749292179547/Yoimiya.png",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1383766035827789845/Yoimiya.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698298464604351/UI_AvatarIcon_Yoimiya.webp",
     "element": "pyro"
+  },
+  {
+    "character_name": "Chiori",
+    "guide_video_url": "https://youtu.be/z1k3NkNZ7Kc",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1383766563777286204/Chiori.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372699321404756118/UI_AvatarIcon_Chiori.webp",
+    "element": "geo"
+  },
+  {
+    "character_name": "Kamisato Ayaka",
+    "guide_video_url": "https://youtu.be/mkxgC05GWmk",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1383767367536082995/Ayaka.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698245389750473/UI_AvatarIcon_Ayaka.png",
+    "element": "cryo"
+  },
+  {
+    "character_name": "Kamisato Ayato",
+    "guide_video_url": "https://youtu.be/7SdG8meDRos",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1383767581902503957/Ayato.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698583043670056/UI_AvatarIcon_Ayato.webp",
+    "element": "hydro"
   }
 ]
