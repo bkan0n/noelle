@@ -87,6 +87,7 @@ jobs:
     environment: development
     steps:
       - name: Checkout repository
+        if: github.event.issue.number != null
         uses: actions/checkout@v4
         with:
           ref: ${{ format('refs/pull/{0}/head', github.event.issue.number) }}
