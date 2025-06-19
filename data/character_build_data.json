@@ -82,5 +82,19 @@
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1383821027171369051/Ayato.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698583043670056/UI_AvatarIcon_Ayato.webp",
     "element": "hydro"
+  },
+  {
+    "character_name": "Shenhe",
+    "guide_video_url": "https://youtu.be/tbzTl0Gwk1g",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1385208673369985144/Shenhe.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698504744407160/UI_AvatarIcon_Shenhe.webp",
+    "element": "cryo"
+  },
+  {
+    "character_name": "Skirk",
+    "guide_video_url": "https://www.youtube.com/watch?v=IoqyNPJJtFM&list=PLoq3lWQxVHVbx0nIDZYKrV6f4POQjq-eD&index=3&pp=gAQBiAQB",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1385209544116011088/Skirk.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372700038999965776/UI_AvatarIcon_SkirkNew.webp",
+    "element": "cryo"
   }
 ]
