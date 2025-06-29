@@ -92,7 +92,7 @@
   },
   {
     "character_name": "Skirk",
-    "guide_video_url": "https://www.youtube.com/watch?v=IoqyNPJJtFM&list=PLoq3lWQxVHVbx0nIDZYKrV6f4POQjq-eD&index=3&pp=gAQBiAQB",
+    "guide_video_url": "https://youtu.be/t2-CCOs5jbY",
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1385233501661692055/Skirk.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372700038999965776/UI_AvatarIcon_SkirkNew.webp",
     "element": "cryo"
@@ -117,5 +117,19 @@
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1387108506389184602/Diona.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372700536893214790/UI_AvatarIcon_Diona.webp",
     "element": "cryo"
+  },
+  {
+    "character_name": "Emilie",
+    "guide_video_url": "https://youtu.be/BrJwbTNRG-g?si=oMLt6ueldMe5OHAg",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1388919421334065152/Emilie.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372699527374438400/UI_AvatarIcon_Emilie.webp",
+    "element": "dendro"
+  },
+  {
+    "character_name": "Mavuika",
+    "guide_video_url": "https://youtu.be/TdQ3vHmOORs?si=EjoNXs_TevMpvRs-",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1388919446428581998/Mavuika.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372699815452082278/UI_AvatarIcon_Mavuika.webp",
+    "element": "pyro"
   }
 ]
