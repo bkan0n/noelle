@@ -1,5 +1,26 @@
 [
   {
+    "character_name": "Iansan",
+    "guide_video_url": "https://youtu.be/DKmEYez0QOk",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1393775176000340049/Iansan.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372701330711380130/UI_AvatarIcon_Iansan.webp",
+    "element": "electro"
+  },
+  {
+    "character_name": "Xiangling",
+    "guide_video_url": "https://youtu.be/DDgzGnfUHt0",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1393635268061560994/Xiangling.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372700228146298900/UI_AvatarIcon_Xiangling.webp",
+    "element": "pyro"
+  },
+  {
+    "character_name": "Yaoyao",
+    "guide_video_url": "https://youtu.be/lXC5l4ypRco",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1393635284398248008/Yaoyao.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372700999982125097/UI_AvatarIcon_Yaoyao.webp",
+    "element": "dendro"
+  },
+  {
     "character_name": "Navia",
     "guide_video_url": "https://youtu.be/aW3HqCUMKDs",
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1377395226578256014/Navia.png",
