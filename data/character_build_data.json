@@ -1,5 +1,19 @@
 [
   {
+    "character_name": "Dehya",
+    "guide_video_url": "https://www.youtube.com/watch?v=KaXSnW6yrK0",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1397701535529435266/Dehya.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698930055348414/UI_AvatarIcon_Dehya.webp",
+    "element": "pyro"
+  },
+  {
+    "character_name": "Tighnari",
+    "guide_video_url": "https://www.youtube.com/watch?v=cImazvnkKE8",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1397701554508922920/Tighnari.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698670784450570/UI_AvatarIcon_Tighnari.webp",
+    "element": "dendro"
+  },
+  {
     "character_name": "Iansan",
     "guide_video_url": "https://youtu.be/DKmEYez0QOk",
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1393775176000340049/Iansan.png",
@@ -106,8 +120,8 @@
   },
   {
     "character_name": "Shenhe",
-    "guide_video_url": "https://youtu.be/tbzTl0Gwk1g",
-    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1387103550584389684/Shenhe.png",
+    "guide_video_url": "https://youtu.be/GPBcI_Gj6l0",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1397676968912224257/Shenhe.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698504744407160/UI_AvatarIcon_Shenhe.webp",
     "element": "cryo"
   },
@@ -134,7 +148,7 @@
   },
   {
     "character_name": "Diona",
-    "guide_video_url": "https://youtu.be/Csaum8bHSXU",
+    "guide_video_url": "https://youtu.be/HRtf3LG6rt8",
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1387108506389184602/Diona.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372700536893214790/UI_AvatarIcon_Diona.webp",
     "element": "cryo"
@@ -142,7 +156,7 @@
   {
     "character_name": "Emilie",
     "guide_video_url": "https://youtu.be/BrJwbTNRG-g?si=oMLt6ueldMe5OHAg",
-    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1388919421334065152/Emilie.png",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1397703421598896278/Emilie.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372699527374438400/UI_AvatarIcon_Emilie.webp",
     "element": "dendro"
   },
