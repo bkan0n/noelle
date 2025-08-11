@@ -8,6 +8,8 @@ from discord import app_commands
 from discord.ext import commands
 from rapidfuzz import fuzz, process, utils
 
+from utilities.paginator import Paginator
+
 if TYPE_CHECKING:
     from discord import Interaction
 
@@ -108,6 +110,23 @@ class CharacterNameTransformer(app_commands.Transformer):
         return fuzzed[0]
 
 
+class CharacterPaginator(Paginator):
+    def __init__(self, embeds: list[discord.Embed], author: discord.Member, character_names: list[list[str]]) -> None:
+        super().__init__(embeds, author)
+        self.character_names_per_page = character_names
+        self.character_select = CharacterSelect(character_names[0])
+        self.add_item(self.character_select)
+
+    async def change_page(self, itx: NoelleItx) -> None:
+        self.character_select = CharacterSelect(self.character_names_per_page[self._curr_page])
+        return await super().change_page(itx)
+
+
+class CharacterSelect(discord.ui.Select):
+    def __init__(self, character_names: list[str]) -> None:
+        super().__init__(placeholder="View a character")
+
+
 class CharacterCog(commands.Cog):
     def __init__(self, bot: Noelle) -> None:
         self.bot = bot
@@ -149,6 +168,14 @@ class CharacterCog(commands.Cog):
         )
 
         await itx.response.send_message(embed=embed)
+
+    @app_commands.command()
+    async def view_all_guides(self, itx: NoelleItx) -> None:
+        char_chunks = list(discord.utils.as_chunks(CHARACTER_INFO, 10))
+        embeds = [discord.Embed(description=f"Available:\n{'\n'.join(chunk)}") for chunk in char_chunks]
+        assert isinstance(itx.user, discord.Member)
+        paginator = CharacterPaginator(embeds, itx.user, char_chunks)
+        await paginator.start(itx)
 
 
 async def setup(bot: Noelle) -> None:
