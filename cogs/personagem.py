@@ -122,9 +122,34 @@ class CharacterPaginator(Paginator):
         return await super().change_page(itx)
 
 
+def _build_character_guide(personagem: str) -> discord.Embed:
+    char = CHARACTER_INFO[personagem]
+
+    embed = discord.Embed(
+        description=(
+            f"## {char.element_emoji} {char.character_name}\n\n"
+            "> ### Guia Detalhado no YouTube:\n"
+            f"> ## [Link do Vídeo!]({char.guide_video_url})"
+        ),
+        color=discord.Color.from_str(char.element_color),
+    )
+    embed.set_image(url=char.guide_image_url)
+    embed.set_thumbnail(url=char.character_icon_url)
+    embed.set_footer(
+        text=("Tudo é só recomendação — builde seu personagem com o que você tem e o que fizer sentido pro seu jogo!"),
+        icon_url="https://cdn.discordapp.com/attachments/1372695311369109594/1372890662961152070/warning-genshin.png",
+    )
+    return embed
+
+
 class CharacterSelect(discord.ui.Select):
     def __init__(self, character_names: list[str]) -> None:
-        super().__init__(placeholder="View a character")
+        options = [discord.SelectOption(label=c, value=c) for c in character_names]
+        super().__init__(placeholder="View a character", options=options)
+
+    async def callback(self, itx: NoelleItx) -> None:
+        embed = _build_character_guide(self.values[0])
+        await itx.response.send_message(embed=embed)
 
 
 class CharacterCog(commands.Cog):
@@ -147,26 +172,7 @@ class CharacterCog(commands.Cog):
         if personagem not in CHARACTER_INFO:
             await itx.response.send_message(f"Personagem ({personagem}) não encontrado.", ephemeral=True)
             return
-
-        char = CHARACTER_INFO[personagem]
-
-        embed = discord.Embed(
-            description=(
-                f"## {char.element_emoji} {char.character_name}\n\n"
-                "> ### Guia Detalhado no YouTube:\n"
-                f"> ## [Link do Vídeo!]({char.guide_video_url})"
-            ),
-            color=discord.Color.from_str(char.element_color),
-        )
-        embed.set_image(url=char.guide_image_url)
-        embed.set_thumbnail(url=char.character_icon_url)
-        embed.set_footer(
-            text=(
-                "Tudo é só recomendação — builde seu personagem com o que você tem e o que fizer sentido pro seu jogo!"
-            ),
-            icon_url="https://cdn.discordapp.com/attachments/1372695311369109594/1372890662961152070/warning-genshin.png",
-        )
-
+        embed = _build_character_guide(personagem)
         await itx.response.send_message(embed=embed)
 
     @app_commands.command()
