@@ -41,7 +41,7 @@ class Paginator(discord.ui.View):
 
     async def start(self, itx: NoelleItx) -> None:
         """Start the pagination view."""
-        await itx.edit_original_response(
+        await itx.response.send_message(
             content=self.end_time,
             embed=self.pages[0],
             view=self,
