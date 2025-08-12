@@ -177,6 +177,7 @@ class CharacterCog(commands.Cog):
 
     @app_commands.command(name="list")
     async def view_all_guides(self, itx: NoelleItx) -> None:
+        """Veja a lista dos persoagens que já criamos guia."""
         char_chunks = list(discord.utils.as_chunks(CHARACTER_INFO, 10))
         embeds = [
             discord.Embed(

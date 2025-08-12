@@ -47,6 +47,7 @@ class HousekeepingCog(commands.Cog):
             if spec == "~":
                 synced = await ctx.bot.tree.sync(guild=ctx.guild)
             elif spec == "*":
+                assert ctx.guild
                 ctx.bot.tree.copy_global_to(guild=ctx.guild)
                 synced = await ctx.bot.tree.sync(guild=ctx.guild)
             elif spec == "^":
