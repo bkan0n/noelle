@@ -175,10 +175,21 @@ class CharacterCog(commands.Cog):
         embed = _build_character_guide(personagem)
         await itx.response.send_message(embed=embed)
 
-    @app_commands.command()
+    @app_commands.command(name="list")
     async def view_all_guides(self, itx: NoelleItx) -> None:
         char_chunks = list(discord.utils.as_chunks(CHARACTER_INFO, 10))
-        embeds = [discord.Embed(description=f"Available:\n{'\n'.join(chunk)}") for chunk in char_chunks]
+        embeds = [
+            discord.Embed(
+                title="Lista dos Nossos Guias!",
+                description="\n".join(chunk),
+            )
+            for chunk in char_chunks
+        ]
+        for embed in embeds:
+            embed.set_thumbnail(
+                url="https://cdn.discordapp.com/attachments/1372695311369109594/1404896788451688539/Noelle_List.png"
+            )
+
         assert isinstance(itx.user, discord.Member)
         paginator = CharacterPaginator(embeds, itx.user, char_chunks)
         await paginator.start(itx)

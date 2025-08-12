@@ -13,6 +13,9 @@ if TYPE_CHECKING:
 
     NoelleItx = Interaction[Noelle]
 
+LEFT_EMOJI = "<:_:1404825765580771479>"
+RIGHT_EMOJI = "<:_:1404825786997014640>"
+
 
 class Paginator(discord.ui.View):
     """A view for paginating multiple embeds."""
@@ -33,18 +36,21 @@ class Paginator(discord.ui.View):
         for component in self.children:
             if isinstance(component, discord.ui.Button):
                 component.disabled = True
+        self.next.emoji = discord.PartialEmoji.from_str(RIGHT_EMOJI)
+        self.back.emoji = discord.PartialEmoji.from_str(LEFT_EMOJI)
 
     def _update_end_time(self) -> None:
         assert self.timeout
         time = discord.utils.format_dt(discord.utils.utcnow() + timedelta(seconds=self.timeout), "R")
         self.end_time = "This command will time out " + time
 
-    async def start(self, itx: NoelleItx) -> None:
+    async def start(self, itx: NoelleItx, *, ephemeral: bool = True) -> None:
         """Start the pagination view."""
         await itx.response.send_message(
             content=self.end_time,
             embed=self.pages[0],
             view=self,
+            ephemeral=ephemeral,
         )
         self.original_itx = itx
         await self.wait()
@@ -70,12 +76,6 @@ class Paginator(discord.ui.View):
         self.page_number.label = f"{self._curr_page + 1}/{len(self.pages)}"
         await itx.response.edit_message(content=self.end_time, embed=self.pages[self._curr_page], view=self)
 
-    @discord.ui.button(label="First", emoji="⏮", row=4)
-    async def first(self, itx: NoelleItx, button: discord.ui.Button) -> None:
-        """Button component to return to the first pagination page."""
-        self._curr_page = 0
-        return await self.change_page(itx)
-
     @discord.ui.button(label="Back", emoji="◀", row=4)
     async def back(self, itx: NoelleItx, button: discord.ui.Button) -> None:
         """Button component to go back to the last pagination page."""
@@ -90,10 +90,4 @@ class Paginator(discord.ui.View):
     async def next(self, itx: NoelleItx, button: discord.ui.Button) -> None:
         """Button component to go to the next pagination page."""
         self._curr_page = (self._curr_page + 1) % len(self.pages)
-        return await self.change_page(itx)
-
-    @discord.ui.button(label="Last", emoji="⏭", row=4)
-    async def last(self, itx: NoelleItx, button: discord.ui.Button) -> None:
-        """Button component to go to the last pagination page."""
-        self._curr_page = len(self.pages) - 1
         return await self.change_page(itx)
