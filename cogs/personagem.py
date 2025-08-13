@@ -8,6 +8,8 @@ from discord import app_commands
 from discord.ext import commands
 from rapidfuzz import fuzz, process, utils
 
+from utilities.paginator import Paginator
+
 if TYPE_CHECKING:
     from discord import Interaction
 
@@ -82,9 +84,12 @@ ELEMENTS: Elements = {
 with open("/data/character_build_data.json", "r") as f:
     _list = msgspec.json.decode(f.read(), type=list[CharacterInfo])
 
-CHARACTER_INFO: dict[str, CharacterInfo] = {}
-for _char in _list:
-    CHARACTER_INFO[_char.character_name] = _char
+CHARACTER_INFO: dict[str, CharacterInfo] = dict(
+    sorted(
+        ((_char.character_name, _char) for _char in _list),
+        key=lambda item: item[0].lower(),
+    )
+)
 
 
 class CharacterNameTransformer(app_commands.Transformer):
@@ -108,6 +113,50 @@ class CharacterNameTransformer(app_commands.Transformer):
         return fuzzed[0]
 
 
+class CharacterPaginator(Paginator):
+    def __init__(self, embeds: list[discord.Embed], author: discord.Member, character_names: list[list[str]]) -> None:
+        super().__init__(embeds, author)
+        self.character_names_per_page = character_names
+        self.character_select = CharacterSelect(character_names[0])
+        self.add_item(self.character_select)
+
+    async def change_page(self, itx: NoelleItx) -> None:
+        self.remove_item(self.character_select)
+        self.character_select = CharacterSelect(self.character_names_per_page[self._curr_page])
+        self.add_item(self.character_select)
+        return await super().change_page(itx)
+
+
+def _build_character_guide(personagem: str) -> discord.Embed:
+    char = CHARACTER_INFO[personagem]
+
+    embed = discord.Embed(
+        description=(
+            f"## {char.element_emoji} {char.character_name}\n\n"
+            "> ### Guia Detalhado no YouTube:\n"
+            f"> ## [Link do Vídeo!]({char.guide_video_url})"
+        ),
+        color=discord.Color.from_str(char.element_color),
+    )
+    embed.set_image(url=char.guide_image_url)
+    embed.set_thumbnail(url=char.character_icon_url)
+    embed.set_footer(
+        text=("Tudo é só recomendação — builde seu personagem com o que você tem e o que fizer sentido pro seu jogo!"),
+        icon_url="https://cdn.discordapp.com/attachments/1372695311369109594/1372890662961152070/warning-genshin.png",
+    )
+    return embed
+
+
+class CharacterSelect(discord.ui.Select):
+    def __init__(self, character_names: list[str]) -> None:
+        options = [discord.SelectOption(label=c, value=c) for c in character_names]
+        super().__init__(placeholder="Ver guia de personagem", options=options)
+
+    async def callback(self, itx: NoelleItx) -> None:
+        embed = _build_character_guide(self.values[0])
+        await itx.response.send_message(embed=embed)
+
+
 class CharacterCog(commands.Cog):
     def __init__(self, bot: Noelle) -> None:
         self.bot = bot
@@ -128,27 +177,28 @@ class CharacterCog(commands.Cog):
         if personagem not in CHARACTER_INFO:
             await itx.response.send_message(f"Personagem ({personagem}) não encontrado.", ephemeral=True)
             return
-
-        char = CHARACTER_INFO[personagem]
-
-        embed = discord.Embed(
-            description=(
-                f"## {char.element_emoji} {char.character_name}\n\n"
-                "> ### Guia Detalhado no YouTube:\n"
-                f"> ## [Link do Vídeo!]({char.guide_video_url})"
-            ),
-            color=discord.Color.from_str(char.element_color),
-        )
-        embed.set_image(url=char.guide_image_url)
-        embed.set_thumbnail(url=char.character_icon_url)
-        embed.set_footer(
-            text=(
-                "Tudo é só recomendação — builde seu personagem com o que você tem e o que fizer sentido pro seu jogo!"
-            ),
-            icon_url="https://cdn.discordapp.com/attachments/1372695311369109594/1372890662961152070/warning-genshin.png",
-        )
-
+        embed = _build_character_guide(personagem)
         await itx.response.send_message(embed=embed)
+
+    @app_commands.command(name="list")
+    async def view_all_guides(self, itx: NoelleItx) -> None:
+        """Veja a lista dos persoagens que já criamos guia."""
+        char_chunks = list(discord.utils.as_chunks(CHARACTER_INFO, 10))
+        embeds = [
+            discord.Embed(
+                title="Lista dos Nossos Guias!",
+                description="\n".join(chunk),
+            )
+            for chunk in char_chunks
+        ]
+        for embed in embeds:
+            embed.set_thumbnail(
+                url="https://cdn.discordapp.com/attachments/1372695311369109594/1404896788451688539/Noelle_List.png"
+            )
+
+        assert isinstance(itx.user, discord.Member)
+        paginator = CharacterPaginator(embeds, itx.user, char_chunks)
+        await paginator.start(itx)
 
 
 async def setup(bot: Noelle) -> None:

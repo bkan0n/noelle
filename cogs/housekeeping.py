@@ -11,27 +11,23 @@ if TYPE_CHECKING:
     NoelleCtx = commands.Context[Noelle]
 
 
+def youngnebula_or_sumpin_check(ctx: commands.Context) -> bool:
+    """Check if author is youngnebula or sumpin."""
+    return ctx.message.author.id in (141372217677053952, 243088306764513280)
+
+
 class HousekeepingCog(commands.Cog):
     def __init__(self, bot: Noelle) -> None:
         self.bot = bot
 
     @commands.command()
     @commands.guild_only()
-    @commands.is_owner()
-    async def test(
-        self,
-        ctx: NoelleCtx,
-    ) -> None:
-        await ctx.send("Test complete!!! :)")
-
-    @commands.command()
-    @commands.guild_only()
-    @commands.is_owner()
+    @commands.check(youngnebula_or_sumpin_check)
     async def sync(
         self,
         ctx: NoelleCtx,
         guilds: commands.Greedy[discord.Object],
-        spec: Literal["~", "*", "^"] | None = None,
+        spec: Literal["~", "*", "^", "$"] | None = None,
     ) -> None:
         """Sync commands to Discord.
 
@@ -47,6 +43,7 @@ class HousekeepingCog(commands.Cog):
             if spec == "~":
                 synced = await ctx.bot.tree.sync(guild=ctx.guild)
             elif spec == "*":
+                assert ctx.guild
                 ctx.bot.tree.copy_global_to(guild=ctx.guild)
                 synced = await ctx.bot.tree.sync(guild=ctx.guild)
             elif spec == "^":
