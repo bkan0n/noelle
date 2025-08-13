@@ -22,15 +22,6 @@ class HousekeepingCog(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
-    @commands.is_owner()
-    async def test(
-        self,
-        ctx: NoelleCtx,
-    ) -> None:
-        await ctx.send("Test complete!!! :)")
-
-    @commands.command()
-    @commands.guild_only()
     @commands.check(youngnebula_or_sumpin_check)
     async def sync(
         self,
