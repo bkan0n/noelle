@@ -40,7 +40,7 @@ class Paginator(discord.ui.View):
     def _update_end_time(self) -> None:
         assert self.timeout
         time = discord.utils.format_dt(discord.utils.utcnow() + timedelta(seconds=self.timeout), "R")
-        self.end_time = "This command will time out " + time
+        self.end_time = "O comando sumirá em " + time
 
     async def start(self, itx: NoelleItx, *, ephemeral: bool = True) -> None:
         """Start the pagination view."""
@@ -74,7 +74,7 @@ class Paginator(discord.ui.View):
         self.page_number.label = f"{self._curr_page + 1}/{len(self.pages)}"
         await itx.response.edit_message(content=self.end_time, embed=self.pages[self._curr_page], view=self)
 
-    @discord.ui.button(label="Back", emoji=LEFT_EMOJI, row=4)
+    @discord.ui.button(label="Voltar", emoji=LEFT_EMOJI, row=4)
     async def back(self, itx: NoelleItx, button: discord.ui.Button) -> None:
         """Button component to go back to the last pagination page."""
         self._curr_page = (self._curr_page - 1) % len(self.pages)
@@ -84,7 +84,7 @@ class Paginator(discord.ui.View):
     async def page_number(self, itx: NoelleItx, button: discord.ui.Button) -> None:
         """Button component to visualize the page number."""
 
-    @discord.ui.button(label="Next", emoji=RIGHT_EMOJI, row=4)
+    @discord.ui.button(label="Próximo", emoji=RIGHT_EMOJI, row=4)
     async def next(self, itx: NoelleItx, button: discord.ui.Button) -> None:
         """Button component to go to the next pagination page."""
         self._curr_page = (self._curr_page + 1) % len(self.pages)
