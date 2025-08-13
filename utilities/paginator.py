@@ -40,7 +40,7 @@ class Paginator(discord.ui.View):
     def _update_end_time(self) -> None:
         assert self.timeout
         time = discord.utils.format_dt(discord.utils.utcnow() + timedelta(seconds=self.timeout), "R")
-        self.end_time = "O comando sumirá em " + time
+        self.end_time = "O comando sumirá " + time
 
     async def start(self, itx: NoelleItx, *, ephemeral: bool = True) -> None:
         """Start the pagination view."""
