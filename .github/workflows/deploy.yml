@@ -10,6 +10,8 @@ permissions:
   contents: read
   pull-requests: write
   issues: write
+  deployments: write
+  statuses: write
 
 jobs:
   build:
@@ -219,9 +221,7 @@ jobs:
       startsWith(github.event.comment.body, '/dev-deploy') &&
       contains(fromJson('["48333668","30445552"]'), format('{0}', github.event.comment.user.id))
     environment: development
-    steps:
-      # (no reaction/comment creation here anymore)
-  
+    steps:  
       - name: Update status — deploying to dev
         if: github.event_name == 'issue_comment'
         uses: actions/github-script@v7
@@ -266,12 +266,86 @@ jobs:
             --docker "host=ssh://${{ secrets.SERVER_HOST_USER }}@${{ secrets.SERVER_HOST_IP }}" \
             --description "Dev server context"
           docker context use dev-server
+
+      - name: Get PR head SHA
+        id: pr
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr_number = context.payload.issue.number;
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr_number,
+            });
+            core.setOutput('sha', pr.head.sha);
   
+      - name: Create GitHub Deployment (development)
+        id: create_depl
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data } = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: '${{ steps.pr.outputs.sha }}', // tie to PR head
+              environment: 'development',
+              description: 'Dev deploy via /dev-deploy',
+              transient_environment: true,
+              auto_merge: false,       // don't try to auto-merge default branch
+              required_contexts: [],   // allow deployment even if not all checks exist yet
+              production_environment: false,
+            });
+            core.setOutput('deployment_id', String(data.id));
+  
+      - name: Deployment status — in_progress
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: Number('${{ steps.create_depl.outputs.deployment_id }}'),
+              state: 'in_progress',
+              log_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+              environment_url: '${{ vars.DEV_ENV_URL || secrets.DEV_ENV_URL || '' }}', // optional
+            });
+
       - name: Deploy to Remote Dev Server
         run: |
           VERSION_TAG=$(git rev-parse --short HEAD)
           echo "Deploying to Dev Server..."
           docker compose -f docker-compose.dev.yml up -d --build --no-deps --force-recreate
+
+      - name: Deployment status — success
+        if: github.event_name == 'issue_comment' && success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: Number('${{ steps.create_depl.outputs.deployment_id }}'),
+              state: 'success',
+              log_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+              environment_url: '${{ vars.DEV_ENV_URL || secrets.DEV_ENV_URL || '' }}', // put your dev URL here or as a var/secret
+            });
+  
+      - name: Deployment status — failure
+        if: github.event_name == 'issue_comment' && failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: Number('${{ steps.create_depl.outputs.deployment_id }}'),
+              state: 'failure',
+              log_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+            });
   
       - name: Finish status — success
         if: github.event_name == 'issue_comment' && success()
