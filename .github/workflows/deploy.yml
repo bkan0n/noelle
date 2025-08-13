@@ -9,11 +9,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: |
-      (github.ref == 'refs/heads/main' && github.event_name != 'issue_comment') ||
-      (github.event_name == 'issue_comment' && 
-       github.event.comment.body == '/dev-deploy' && 
-       github.event.comment.user.id == 48333668 || github.event.comment.user.id == 30445552)
+    if: >
+      (
+        github.ref == 'refs/heads/main' &&
+        github.event_name != 'issue_comment'
+      ) ||
+      (
+        github.event_name == 'issue_comment' &&
+        github.event.issue.pull_request != null &&
+        github.event.issue.state == 'open' &&
+        startsWith(github.event.comment.body, '/dev-deploy') &&
+        contains(fromJson('["OWNER","COLLABORATOR"]'), github.event.comment.author_association)
+      )
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -82,7 +90,12 @@ jobs:
   deploy_to_dev:
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ github.event.issue.pull_request && github.event.issue.number && github.event.comment.body == '/dev-deploy' && (github.event.comment.user.id == 48333668 || github.event.comment.user.id == 30445552) && github.event.issue.state == 'open'}}
+    if: >
+      github.event_name == 'issue_comment' &&
+      github.event.issue.pull_request != null &&
+      github.event.issue.state == 'open' &&
+      startsWith(github.event.comment.body, '/dev-deploy') &&
+      contains(fromJson('["OWNER","COLLABORATOR"]'), github.event.comment.author_association)
     environment: development
     steps:
       - name: Checkout repository
