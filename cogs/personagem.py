@@ -84,9 +84,12 @@ ELEMENTS: Elements = {
 with open("/data/character_build_data.json", "r") as f:
     _list = msgspec.json.decode(f.read(), type=list[CharacterInfo])
 
-CHARACTER_INFO: dict[str, CharacterInfo] = {}
-for _char in _list:
-    CHARACTER_INFO[_char.character_name] = _char
+CHARACTER_INFO: dict[str, CharacterInfo] = dict(
+    sorted(
+        ((_char.character_name, _char) for _char in _list),
+        key=lambda item: item[0].lower(),
+    )
+)
 
 
 class CharacterNameTransformer(app_commands.Transformer):
@@ -178,6 +181,7 @@ class CharacterCog(commands.Cog):
     @app_commands.command(name="list")
     async def view_all_guides(self, itx: NoelleItx) -> None:
         """Veja a lista dos persoagens que já criamos guia."""
+        sorted_characters = sorted(CHARACTER_INFO)
         char_chunks = list(discord.utils.as_chunks(CHARACTER_INFO, 10))
         embeds = [
             discord.Embed(
