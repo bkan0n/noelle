@@ -11,6 +11,11 @@ if TYPE_CHECKING:
     NoelleCtx = commands.Context[Noelle]
 
 
+def youngnebula_or_sumpin_check(ctx: commands.Context) -> bool:
+    """Check if author is youngnebula or sumpin."""
+    return ctx.message.author.id in (141372217677053952, 243088306764513280)
+
+
 class HousekeepingCog(commands.Cog):
     def __init__(self, bot: Noelle) -> None:
         self.bot = bot
@@ -26,7 +31,7 @@ class HousekeepingCog(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
-    @commands.is_owner()
+    @commands.check(youngnebula_or_sumpin_check)
     async def sync(
         self,
         ctx: NoelleCtx,
