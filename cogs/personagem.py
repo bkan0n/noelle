@@ -121,7 +121,9 @@ class CharacterPaginator(Paginator):
         self.add_item(self.character_select)
 
     async def change_page(self, itx: NoelleItx) -> None:
+        self.remove_item(self.character_select)
         self.character_select = CharacterSelect(self.character_names_per_page[self._curr_page])
+        self.add_item(self.character_select)
         return await super().change_page(itx)
 
 
