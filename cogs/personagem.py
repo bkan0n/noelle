@@ -148,7 +148,7 @@ def _build_character_guide(personagem: str) -> discord.Embed:
 class CharacterSelect(discord.ui.Select):
     def __init__(self, character_names: list[str]) -> None:
         options = [discord.SelectOption(label=c, value=c) for c in character_names]
-        super().__init__(placeholder="Ver personagem", options=options)
+        super().__init__(placeholder="Ver guia de personagem", options=options)
 
     async def callback(self, itx: NoelleItx) -> None:
         embed = _build_character_guide(self.values[0])
