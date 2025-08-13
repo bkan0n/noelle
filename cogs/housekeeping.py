@@ -27,7 +27,7 @@ class HousekeepingCog(commands.Cog):
         self,
         ctx: NoelleCtx,
         guilds: commands.Greedy[discord.Object],
-        spec: Literal["~", "*", "^"] | None = None,
+        spec: Literal["~", "*", "^", "$"] | None = None,
     ) -> None:
         """Sync commands to Discord.
 
