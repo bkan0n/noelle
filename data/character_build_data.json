@@ -1,5 +1,89 @@
 [
    {
+    "character_name": "Mona",
+    "guide_video_url": "https://www.youtube.com/watch?v=a-KWZUe1IOw",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898679130030234/Mona.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372697903553974322/UI_AvatarIcon_Mona.webp",
+    "element": "hydro"
+  },
+  {
+    "character_name": "Yumemizuki Mizuki",
+    "guide_video_url": "https://youtu.be/V5PtfNYVwd4?si=LyQlCnxq7UAW9_YN",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898700025794722/Yumemizuki_Mizuki.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372699883319988264/UI_AvatarIcon_Mizuki.webp",
+    "element": "anemo"
+  },
+  {
+    "character_name": "Nahida",
+    "guide_video_url": "https://youtu.be/wDHIyXgJT5o",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898731369824356/Nahida.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372698789575659610/UI_AvatarIcon_Nahida.png",
+    "element": "dendro"
+  },
+  {
+    "character_name": "Aino",
+    "guide_video_url": "https://youtu.be/uQMv_rS1rVA",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898754090500116/Aino.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1400247346939428885/UI_AvatarIcon_Aino.png",
+    "element": "hydro"
+  },
+  {
+    "character_name": "Keqing",
+    "guide_video_url": "https://www.youtube.com/watch?v=MSU4wMo2I0w",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898774269431858/Keqing.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372699922750640209/UI_AvatarIcon_Keqing.webp",
+    "element": "electro"
+  },
+   {
+    "character_name": "Qiqi",
+    "guide_video_url": "Vídeo em breve!",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898798789201981/Qiqi.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372697863359959090/UI_AvatarIcon_Qiqi.png",
+    "element": "cryo"
+  },
+  {
+    "character_name": "Jean",
+    "guide_video_url": "https://youtu.be/QoaL6W53vWk?si=G_jay51bMft8YM0w",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898818196246528/Jean.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372697704823783534/UI_AvatarIcon_Qin.webp",
+    "element": "anemo"
+  },
+  {
+    "character_name": "Diluc",
+    "guide_video_url": "Vídeo em breve!",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898840111349980/Diluc.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372697747576193105/UI_AvatarIcon_Diluc.png",
+    "element": "pyro"
+  },
+  {
+    "character_name": "Lauma",
+    "guide_video_url": "https://youtu.be/pgrjAoc8-PE?si=aNmbI6JqF3c3VBwZ",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898854619582544/Lauma.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1400247306791419994/UI_AvatarIcon_Lauma.png",
+    "element": "dendro"
+  },
+  {
+    "character_name": "Kaveh",
+    "guide_video_url": "https://youtu.be/V4YQp2sDiic",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898879940464833/Kaveh.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372701054197567529/UI_AvatarIcon_Kaveh.webp",
+    "element": "dendro"
+  },
+  {
+    "character_name": "Barbara",
+    "guide_video_url": "https://youtu.be/JK6BsDcUYkA",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898926891630613/Barbara.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372700100765417582/UI_AvatarIcon_Barbara.webp",
+    "element": "hydro"
+  },
+  {
+    "character_name": "Kuki Shinobu",
+    "guide_video_url": "https://youtu.be/_g44041Nx_4",
+    "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898942846894101/Kuki.png",
+    "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372700773250629782/UI_AvatarIcon_Shinobu.png",
+    "element": "electro"
+  },
+   {
     "character_name": "Chasca",
     "guide_video_url": "https://youtu.be/NzfGfns7lSI",
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1407413153444134984/Chasca.png",
