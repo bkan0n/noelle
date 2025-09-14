@@ -36,7 +36,7 @@
   },
    {
     "character_name": "Qiqi",
-    "guide_video_url": "Vídeo em breve!",
+    "guide_video_url": "https://www.youtube.com/@HMCGamerBr",
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898798789201981/Qiqi.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372697863359959090/UI_AvatarIcon_Qiqi.png",
     "element": "cryo"
@@ -50,7 +50,7 @@
   },
   {
     "character_name": "Diluc",
-    "guide_video_url": "Vídeo em breve!",
+    "guide_video_url": "https://www.youtube.com/@HMCGamerBr",
     "guide_image_url": "https://cdn.discordapp.com/attachments/1372677952030117948/1416898840111349980/Diluc.png",
     "character_icon_url": "https://cdn.discordapp.com/attachments/1372677919624790076/1372697747576193105/UI_AvatarIcon_Diluc.png",
     "element": "pyro"
