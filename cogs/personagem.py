@@ -132,9 +132,8 @@ def _build_character_guide(personagem: str) -> discord.Embed:
 
     embed = discord.Embed(
         description=(
-            f"## {char.element_emoji} {char.character_name}\n\n"
-            "> ### Guia Detalhado no YouTube:\n"
-            f"> ## [Link do Vídeo!]({char.guide_video_url})"
+            f"## {char.element_emoji} {char.character_name}\n\n> ### Guia Detalhado no YouTube:\n"
+            + (f"> ## [Link do Vídeo!]({char.guide_video_url})" if char.guide_video_url else "> ## Vídeo em breve!")
         ),
         color=discord.Color.from_str(char.element_color),
     )

@@ -24,7 +24,12 @@
         "enum": ["pyro", "cryo", "hydro", "dendro", "anemo", "geo", "electro"]
       }
     },
-    "required": ["character_name", "guide_video_url", "guide_image_url", "character_icon_url", "element"],
+    "required": [
+      "character_name",
+      "guide_image_url",
+      "character_icon_url",
+      "element"
+    ],
     "additionalProperties": false
   }
 }
