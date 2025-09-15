@@ -6,15 +6,83 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  deployments: write
+  statuses: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: |
-      (github.ref == 'refs/heads/main' && github.event_name != 'issue_comment') ||
-      (github.event_name == 'issue_comment' && 
-       github.event.comment.body == '/dev-deploy' && 
-       github.event.comment.user.id == 48333668 || github.event.comment.user.id == 30445552)
+    if: >
+      (
+        github.ref == 'refs/heads/main' &&
+        github.event_name != 'issue_comment'
+      ) ||
+      (
+        github.event_name == 'issue_comment' &&
+        github.event.issue.pull_request != null &&
+        github.event.issue.state == 'open' &&
+        startsWith(github.event.comment.body, '/dev-deploy') &&
+        contains(fromJson('["48333668","30445552"]'), format('{0}', github.event.comment.user.id))
+      )
+    outputs:
+      comment_id: ${{ steps.status_comment.outputs.comment_id }}
     steps:
+      # Only runs on issue_comment
+      - name: Acknowledge command (reaction)
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'eyes'
+            });
+
+      - name: Create status comment
+        id: status_comment
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue_number = context.payload.issue.number;
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+            const prUrl = context.payload.issue.pull_request?.html_url;
+            const cmd = context.payload.comment.body.trim();
+            const by = context.payload.comment.user.login;
+
+            const body = [
+              `🚀 **Dev deploy requested** by @${by}`,
+              prUrl ? `PR: ${prUrl}` : '',
+              `Run: ${runUrl}`,
+              '',
+              '**Status:** 🧱 Building Docker image…',
+              '',
+              '- [x] Queued',
+              '- [x] Started',
+              '- [ ] Image built',
+              '- [ ] Pushed',
+              '- [ ] Deployed',
+              '',
+              '```',
+              cmd,
+              '```'
+            ].filter(Boolean).join('\n');
+
+            const { data } = await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+              body
+            });
+
+            core.setOutput('comment_id', String(data.id));
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -30,16 +98,81 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      # Update status: image building (redundant but shows progress if checkout/setup took long)
+      - name: Update status — still building
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment_id = Number('${{ steps.status_comment.outputs.comment_id }}');
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+            const body = [
+              `🚀 **Dev deploy in progress**`,
+              `Run: ${runUrl}`,
+              '',
+              '**Status:** 🧱 Building Docker image…',
+              '',
+              '- [x] Queued',
+              '- [x] Started',
+              '- [ ] Image built',
+              '- [ ] Pushed',
+              '- [ ] Deployed',
+            ].join('\n');
+            await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id, body });
+
       - name: Build Docker image
         run: |
           VERSION_TAG=$(git rev-parse --short HEAD)
           docker build --no-cache --pull -t tylovejoy/noelle:$VERSION_TAG -t tylovejoy/noelle:latest .
+
+      - name: Update status — image built, pushing…
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment_id = Number('${{ steps.status_comment.outputs.comment_id }}');
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+            const body = [
+              `🚀 **Dev deploy in progress**`,
+              `Run: ${runUrl}`,
+              '',
+              '**Status:** 📦 Image built, pushing…',
+              '',
+              '- [x] Queued',
+              '- [x] Started',
+              '- [x] Image built',
+              '- [ ] Pushed',
+              '- [ ] Deployed',
+            ].join('\n');
+            await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id, body });
 
       - name: Push Docker image to Docker Hub
         run: |
           VERSION_TAG=$(git rev-parse --short HEAD)
           docker push tylovejoy/noelle:$VERSION_TAG
           docker push tylovejoy/noelle:latest
+
+      - name: Update status — push complete
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment_id = Number('${{ steps.status_comment.outputs.comment_id }}');
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+            const body = [
+              `🚀 **Dev deploy in progress**`,
+              `Run: ${runUrl}`,
+              '',
+              '**Status:** ✅ Image pushed, waiting for deploy…',
+              '',
+              '- [x] Queued',
+              '- [x] Started',
+              '- [x] Image built',
+              '- [x] Pushed',
+              '- [ ] Deployed',
+            ].join('\n');
+            await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id, body });
+
 
   deploy_to_prod:
     runs-on: ubuntu-latest
@@ -78,30 +211,55 @@ jobs:
         env:
           VERSION_TAG: ${{ github.sha }}
           TOKEN: ${{ secrets.TOKEN }}
-
   deploy_to_dev:
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ github.event.issue.pull_request && github.event.issue.number && github.event.comment.body == '/dev-deploy' && (github.event.comment.user.id == 48333668 || github.event.comment.user.id == 30445552) && github.event.issue.state == 'open'}}
+    if: >
+      github.event_name == 'issue_comment' &&
+      github.event.issue.pull_request != null &&
+      github.event.issue.state == 'open' &&
+      startsWith(github.event.comment.body, '/dev-deploy') &&
+      contains(fromJson('["48333668","30445552"]'), format('{0}', github.event.comment.user.id))
     environment: development
-    steps:
+    steps:  
+      - name: Update status — deploying to dev
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment_id = Number('${{ needs.build.outputs.comment_id }}');
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+            const body = [
+              `🚀 **Dev deploy in progress**`,
+              `Run: ${runUrl}`,
+              '',
+              '**Status:** 🚢 Deploying docker-compose (dev)…',
+              '',
+              '- [x] Queued',
+              '- [x] Started',
+              '- [x] Image built',
+              '- [x] Pushed',
+              '- [ ] Deployed',
+            ].join('\n');
+            await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id, body });
+  
       - name: Checkout repository
         if: github.event.issue.number != null
         uses: actions/checkout@v4
         with:
           ref: ${{ format('refs/pull/{0}/head', github.event.issue.number) }}
           fetch-depth: 0
-
+  
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SERVER_HOST_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa 
-
+  
       - name: Add remote host to known_hosts
         run: |
           ssh-keyscan -H ${{ secrets.SERVER_HOST_IP }} >> ~/.ssh/known_hosts
-
+  
       - name: Set up Docker context for dev
         run: |
           docker context create dev-server \
@@ -109,13 +267,132 @@ jobs:
             --description "Dev server context"
           docker context use dev-server
 
+      - name: Get PR head SHA
+        id: pr
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr_number = context.payload.issue.number;
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr_number,
+            });
+            core.setOutput('sha', pr.head.sha);
+  
+      - name: Create GitHub Deployment (development)
+        id: create_depl
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data } = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: '${{ steps.pr.outputs.sha }}', // tie to PR head
+              environment: 'development',
+              description: 'Dev deploy via /dev-deploy',
+              transient_environment: true,
+              auto_merge: false,       // don't try to auto-merge default branch
+              required_contexts: [],   // allow deployment even if not all checks exist yet
+              production_environment: false,
+            });
+            core.setOutput('deployment_id', String(data.id));
+  
+      - name: Deployment status — in_progress
+        if: github.event_name == 'issue_comment'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: Number('${{ steps.create_depl.outputs.deployment_id }}'),
+              state: 'in_progress',
+              log_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+              environment_url: '${{ vars.DEV_ENV_URL || secrets.DEV_ENV_URL || '' }}', // optional
+            });
+
       - name: Deploy to Remote Dev Server
         run: |
           VERSION_TAG=$(git rev-parse --short HEAD)
           echo "Deploying to Dev Server..."
-          
           docker compose -f docker-compose.dev.yml up -d --build --no-deps --force-recreate
 
-        env:
-          VERSION_TAG: ${{ github.sha }}
-          TOKEN: ${{ secrets.TOKEN }}
+      - name: Deployment status — success
+        if: github.event_name == 'issue_comment' && success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: Number('${{ steps.create_depl.outputs.deployment_id }}'),
+              state: 'success',
+              log_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+              environment_url: '${{ vars.DEV_ENV_URL || secrets.DEV_ENV_URL || '' }}', // put your dev URL here or as a var/secret
+            });
+  
+      - name: Deployment status — failure
+        if: github.event_name == 'issue_comment' && failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: Number('${{ steps.create_depl.outputs.deployment_id }}'),
+              state: 'failure',
+              log_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+            });
+  
+      - name: Finish status — success
+        if: github.event_name == 'issue_comment' && success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment_id = Number('${{ needs.build.outputs.comment_id }}');
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+            const body = [
+              `✅ **Dev deploy succeeded**`,
+              `Run: ${runUrl}`,
+              '',
+              '**Status:** Done',
+              '',
+              '- [x] Build & push',
+              '- [x] Deploy to dev',
+            ].join('\n');
+            await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id, body });
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              comment_id: context.payload.comment.id, content: 'rocket'
+            });
+  
+      - name: Finish status — failure
+        if: github.event_name == 'issue_comment' && failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment_id = Number('${{ needs.build.outputs.comment_id }}');
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+            const body = [
+              `❌ **Dev deploy failed**`,
+              `Run: ${runUrl}`,
+              '',
+              '**Status:** Failed — check logs in the run link above.`,
+              '',
+              '- [x] Build & push',
+              '- [x] Start deploy',
+              '- [ ] Completed',
+            ].join('\n');
+            await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id, body });
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              comment_id: context.payload.comment.id, content: '-1'
+            });
+  
+    env:
+      VERSION_TAG: ${{ github.sha }}
+      TOKEN: ${{ secrets.TOKEN }}
+
